@@ -47,7 +47,7 @@ jobs:
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: loan_flask_app
+          ECR_REPOSITORY: flask_app
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
@@ -58,8 +58,8 @@ jobs:
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: loan_app_shivank.json
-          container-name: loan_app_container
+          task-definition: loan_app_test_definition.json
+          container-name: loanapp_container_aws
           image: ${{ steps.build-image.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
@@ -67,5 +67,5 @@ jobs:
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
           service: loan_app_service
-          cluster: loan-app-clusters
+          cluster: deepak_cluster
           wait-for-service-stability: true
