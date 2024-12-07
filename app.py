@@ -51,10 +51,14 @@ def predict():
     return jsonify(result)
 
 
-@app.route('/ping', methods=['GET'])
-def ping():
-    return "Pinging Model!!"
+@app.route("/")
+def hello_world():
+    return "<p>Hello, Deepak!</p>"
 
-@app.route('/', methods=['GET'])
-def hello():
-    return "Hello Deepak!!"
+@app.route("/ping", methods=['GET'])
+def ping():
+    return "<p>Hey man! why are you pinging me</p>"
+
+@app.route("/aboutus", methods=['GET'])
+def aboutus():
+    return "<p>We are Mlops learners</p>"
